@@ -88,9 +88,36 @@ int main()
 
 int moveMaxToFront(ListNode **ptrHead)
 {
-    /* add your code here */
-}
+	ListNode *maxNode, *cur;
+	maxNode = *ptrHead;
+	cur = *ptrHead;
 
+	// max 노드 찾기
+	while (cur != NULL) {
+		if (cur->item > maxNode->item)
+			maxNode = cur;
+		
+		cur = cur->next;
+	}
+
+	// 처음부터 다시 순회하면서 최대값 앞으로 옮기기
+	cur = *ptrHead;
+	while (cur != NULL) {
+		if (cur->next != NULL && cur->next->item == maxNode->item) {
+			// 최대값 뒤의 값과 연결
+			cur->next = maxNode->next;
+			// 최대값 다음 노드는 첫번째 노드
+			maxNode->next = *ptrHead;
+			// head를 최대값으로 변경
+			*ptrHead = maxNode;
+
+			break;	
+		}
+
+		// 다음 노드
+		cur = cur->next;
+	}
+}
 //////////////////////////////////////////////////////////////////////////////////
 
 void printList(LinkedList *ll){
