@@ -86,7 +86,57 @@ int main()
 
 void moveOddItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+	// 리스트가 비어있으면 리턴
+	if (ll == NULL) 
+		return;
+
+	int sz = ll->size;
+
+	ListNode *pre, *cur;
+	pre = ll->head;
+	cur = ll->head;
+
+	for (int i = 0; i < sz; i++) {
+		if (cur == NULL)
+			break;
+
+		// 첫번째 요소가 홀수인 경우
+		if (pre == cur && cur->item % 2 == 1) {
+			// 홀수를 찾아 뒤에 연결함
+			ListNode *last = findNode(ll, sz - 1);
+			last->next = cur;
+			// 현재 리스트의 두번째 요소로 헤드를 바꿔줌
+			ll->head = cur->next;
+			cur = cur->next;
+			pre = cur;
+			findNode(ll, sz - 1)->next = NULL;
+		}
+
+		// 2번째 이후 요소가 홀수인 경우
+		else if (cur->item % 2 == 1) {
+			// 홀수를 찾아 뒤에 연결함
+			ListNode *last = findNode(ll, sz - 1);
+			last->next = cur;
+
+			// pre는 그대로, cur는 다음 노드로 
+			pre->next = cur->next;
+			cur = cur->next;
+			findNode(ll, sz - 1)->next = NULL;
+		}
+
+		// 짝수면 pre, cur 한 칸씩 뒤로
+		else { 
+			// 첫 요소는 cur만 이동
+			if (pre == cur) {
+				cur = cur->next;
+			}
+
+			else {
+				pre = pre->next;
+				cur = cur->next;
+			}
+		}
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
