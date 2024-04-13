@@ -102,7 +102,34 @@ int main()
 
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
-	/* add your code here */
+	if (ll == NULL)
+		return;
+
+	int sz = ll->size;
+	ListNode *cur;
+	cur = ll->head;
+
+	// 리스트 홀수개 / 짝수개인지
+	int idx = (sz % 2 == 0) ? sz / 2 : sz / 2 + 1;
+
+	// 앞 절반
+	for (int i = 0; i < idx; i++) {
+		if (cur == NULL)
+			return;
+		
+		// frontlist 뒤에 현재 아이템 추가
+		insertNode(resultFrontList, resultFrontList->size, cur->item);
+		cur = cur->next;
+	}
+
+	// 뒤 절반
+	for (int i = idx; i < sz; i++) {
+		if (cur == NULL)
+			break;
+		
+		insertNode(resultBackList, resultBackList->size, cur->item);
+		cur = cur->next;
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -165,11 +192,15 @@ int insertNode(LinkedList *ll, int index, int value){
 
 	ListNode *pre, *cur;
 
-	if (ll == NULL || index < 0 || index > ll->size + 1)
+	if (ll == NULL || index < 0 || index > ll->size + 1) {
+		if (ll == NULL)
+			printf("insert not available\n");
 		return -1;
+	}
 
 	// If empty list or inserting first node, need to update head pointer
 	if (ll->head == NULL || index == 0){
+		printf("empty list insert\n");
 		cur = ll->head;
 		ll->head = malloc(sizeof(ListNode));
 		ll->head->item = value;
