@@ -71,7 +71,7 @@ int main()
 		case 3:
 			printf("The resulting sorted linked list is: ");
 			printList(&ll);
-			removeAllItems(&ll);
+			//removeAllItems(&ll);
 			break;
 		case 0:
 			removeAllItems(&ll);
@@ -90,7 +90,43 @@ int main()
 
 int insertSortedLL(LinkedList *ll, int item)
 {
-	/* add your code here */
+	// insertNode(LinkedList *ll, int index, int value) 활용
+
+	// 리스트가 비어있으면
+	if (ll->head == NULL) {
+		insertNode(ll, 0, item);
+		return 0;
+	}
+
+	else {
+		ListNode* cur;
+		cur = ll->head;
+		int index = 0;
+
+		while (cur != NULL) {
+			//printf("index %d, current item %d\n", index, cur->item);
+			// 같은게 있으면 삽입 불가, return -1
+			if (cur->item == item) {
+				printf("CANT INSERT %d\n", cur->item);
+				return -1;
+			}
+
+			// 삽입될 위치 찾기
+			if (cur->item > item) {
+				insertNode(ll, index, item);
+				return index;
+			}
+
+			// 마지막에 삽입되는 경우
+			if (cur->next == NULL) {
+				insertNode(ll, index + 1, item);
+				return index + 1;
+			}
+
+			index++;
+			cur = cur->next;
+		}
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
