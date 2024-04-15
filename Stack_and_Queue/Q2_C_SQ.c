@@ -88,6 +88,7 @@ int main()
 			printList(&(s.ll));
 			break;
 		case 3:
+			createStackFromLinkedList(&ll, &s); // 스택 만들고 시작
 			removeEvenValues(&s); // You need to code this function
 			printf("The resulting stack after removing even integers is: ");
 			printList(&(s.ll));
@@ -113,12 +114,41 @@ int main()
 
 void createStackFromLinkedList(LinkedList *ll, Stack *s)
 {
-    /* add your code here */
+    ListNode *cur;
+	cur = ll->head;
+
+	if (!isEmptyStack(s))
+		removeAllItemsFromStack(s);
+	
+	while (cur != NULL) {
+		push(s, cur->item);
+
+		cur = cur->next;
+	}
 }
 
 void removeEvenValues(Stack *s)
 {
-	/* add your code here */
+	ListNode *cur;
+	cur = s->ll.head;
+	int sz = s->ll.size;
+
+	int idx = 0;
+	for (int i = 0; i < sz; i++) {
+		if (cur == NULL)
+			break;
+		
+		// 짝수면 cur 한 칸 뒤로 이동 후 remove
+		if (cur->item % 2 == 0) {
+			cur = cur->next;
+			removeNode(&(s->ll), idx);
+		}
+		// 홀수면 cur 한 칸 이동
+		else {
+			cur = cur->next;
+			idx++;
+		}	
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////
