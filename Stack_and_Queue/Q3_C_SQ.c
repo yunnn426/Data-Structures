@@ -103,7 +103,33 @@ int main()
 
 int isStackPairwiseConsecutive(Stack *s)
 {
-  /* add your code here */
+	int a = NULL, b = NULL;
+	int bool = 1;
+
+	while (!isEmptyStack(s)) {
+		int top = pop(s);
+
+		if (a == NULL)
+			a = top;
+		else
+			b = top;
+		
+		if (a != NULL && b != NULL) {
+			// consecutive 하지 않으면
+			if (a - b != 1 && a - b != -1)
+				return 0;
+
+			// 다음 쌍을 위해 a, b 비우기
+			a = NULL;
+			b = NULL;
+		}
+	}
+
+	// 짝이 맞지 않으면
+	if (a != NULL || b != NULL)
+		return 0;
+
+	return 1;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
