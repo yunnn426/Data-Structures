@@ -85,13 +85,31 @@ int main()
 
 ////////////////////////////////////////////////////////////////////////
 
+// void RecursiveReverse(ListNode *ptrHead) {
+// 	ListNode *first, *rest;
+// 	first = ptrHead;
+// 	rest = ptrHead;
+
+// 	if (rest == NULL || rest->next == NULL)
+// 		return;
+
+// 	rest = rest->next;
+
+// 	RecursiveReverse(rest);
+
+// 	printf("First: %d, Rest: %d\n", first->item, rest->item);
+// 	first->next->next = first;
+// 	first->next = NULL;
+// 	ptrHead = rest;
+// }
+
 void RecursiveReverse(ListNode **ptrHead)
 {
 	ListNode *first, *rest;
 	first = *ptrHead;
 	rest = *ptrHead;
 
-	if (rest == NULL || rest->next == NULL)
+	if (rest->next == NULL)
 		return;
 	
 	rest = rest->next;
