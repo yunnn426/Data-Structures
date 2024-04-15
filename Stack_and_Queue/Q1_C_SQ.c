@@ -91,6 +91,7 @@ int main()
 			printList(&(q.ll));
 			break;
 		case 3:
+			createQueueFromLinkedList(&ll, &q); // 현재 리스트에서 큐를 만든 후
 			removeOddValues(&q); // You need to code this function
 			printf("The resulting queue after removing odd integers is: ");
 			printList(&(q.ll));
@@ -116,12 +117,32 @@ int main()
 
 void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 {
-	/* add your code here */
+	ListNode *cur;
+	cur = ll->head;
+
+	// 큐가 비어있지 않으면
+	if (!isEmptyQueue(q))
+		removeAllItemsFromQueue(q);
+	
+	// 연결 리스트를 순회하며 요소들을 큐에 추가
+	while (cur != NULL) {
+		enqueue(q, cur->item);
+		cur = cur->next;
+	}
 }
 
 void removeOddValues(Queue *q)
 {
-	/* add your code here */
+	// 홀수면 dequeue
+	// 짝수면 dequeue 후 enqueue
+
+	int sz = q->ll.size;
+	for (int i = 0; i < sz; i++) {
+		int front = dequeue(q);
+		
+		if (front % 2 == 0)
+			enqueue(q, front);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////
