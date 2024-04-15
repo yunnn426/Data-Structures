@@ -104,7 +104,42 @@ int main()
 ////////////////////////////////////////////////////////////
 int balanced(char *expression)
 {
-/* add your code here */
+	// () - 1, [] - 2, {} - 3
+	// init stack
+	Stack st;
+	st.ll.head = NULL;
+	st.ll.size = 0;
+
+	for (int i = 0; expression[i]; i++) {
+		// 여는 괄호 push
+		if (expression[i] == '(')
+			push(&st, 1);
+		else if (expression[i] == '[')
+			push(&st, 2);
+		else if (expression[i] == '{')
+			push(&st, 3);
+		
+		else {
+			// 닫는 괄호 pop
+			int cmp;
+			if (expression[i] == ')')
+				cmp = 1;
+			else if (expression[i] == ']')
+				cmp = 2;
+			else if (expression[i] == '}')
+				cmp = 3;
+
+			int top = pop(&st);
+			if (top != cmp)
+				return 1;
+		}	
+	}
+
+	// 스택이 아직 남아있으면 짝이 안 맞는 것
+	if (isEmptyStack(&st))
+		return 0;
+	else
+		return 1;
 }
 
 ////////////////////////////////////////////////////////////
