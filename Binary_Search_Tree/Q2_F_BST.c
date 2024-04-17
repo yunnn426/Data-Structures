@@ -95,22 +95,20 @@ void inOrderTraversal(BSTNode *root)
 	s.top = NULL;
 
 	BSTNode *cur = root;
-	push(&s, cur);
-
-	while (!isEmpty(&s)) {
-		while (cur->left != NULL) {
-			push(&s, cur->left);
+	do {
+		// 	왼쪽 자식을 모두 푸쉬
+		while (cur != NULL) {
+			push(&s, cur);
 			cur = cur->left;
 		}
 
-		BSTNode *top = pop(&s);
-		printf("%d ", top->item);
+		// 더이상 없으면 pop
+		cur = pop(&s);
+		printf("%d ", cur->item);
 
-		while (top->right != NULL) {
-			push(&s, top->right);
-			top = top->right;
-		}
-	}
+		// 오른쪽 자식으로 이동해 반복
+		cur = cur->right;
+	} while (cur != NULL || !isEmpty(&s));
 }
 
 ///////////////////////////////////////////////////////////////////////////////
