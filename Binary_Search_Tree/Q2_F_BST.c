@@ -111,6 +111,30 @@ void inOrderTraversal(BSTNode *root)
 	} while (cur != NULL || !isEmpty(&s));
 }
 
+// 다른 방법
+// void postOrderIterativeS1(BSTNode *root)
+// {
+// 	// init stack
+// 	Stack s;
+// 	s.top = NULL;
+
+// 	BSTNode *cur = root;
+// 	do {
+// 		// 왼쪽 자식 푸쉬
+// 		while (cur != NULL) {
+// 			push(&s, cur);
+// 			printf("%d ", cur->item);
+// 			cur = cur->left;
+// 		}
+		
+// 		// 더이상 없으면 팝
+// 		cur = pop(&s);
+
+// 		// 오른쪽 자식에 대해서도 똑같이 수행
+// 		cur = cur->right;
+// 	} while (cur != NULL || !isEmpty(&s));
+// }
+
 ///////////////////////////////////////////////////////////////////////////////
 
 void insertBSTNode(BSTNode **node, int value){
